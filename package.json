@@ -1,0 +1,22 @@
+{
+  "name": "pcat",
+  "version": "1.0.0",
+  "description": "Photo App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toprak1771/PCAT.git"
+  },
+  "author": "Toprak Tüzün",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toprak1771/PCAT/issues"
+  },
+  "homepage": "https://github.com/toprak1771/PCAT#readme",
+  "devDependencies": {
+    "prettier": "2.8.6"
+  }
+}
