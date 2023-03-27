@@ -18,10 +18,10 @@ app.use(express.json());
 
 //routes
 app.get('/', async (req, res) => {
-  const photos= await Photo.find({});
+  const photos = await Photo.find({});
   //console.log(photos);
-  res.render('index',{
-    photos
+  res.render('index', {
+    photos,
   });
 });
 
@@ -38,6 +38,11 @@ app.get('/add', (req, res) => {
 app.post('/photos', async (req, res) => {
   await Photo.create(req.body);
   res.redirect('/');
+});
+
+app.get('/photo/:id', async (req, res) => {
+  const photo = await Photo.findById(req.params.id)
+  res.render('photo',{photo});
 });
 
 const port = 3000;
