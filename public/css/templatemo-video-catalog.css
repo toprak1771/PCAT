@@ -6,6 +6,7 @@ https://templatemo.com/tm-552-video-catalog
 
 */
 
+
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
@@ -395,6 +396,15 @@ video {
     width:100%;
 }
 
+.delete-button {
+    width: 10px;
+    height: 10px;
+}
+.delete-icon {
+    width: 5px;
+    height: 5px;
+    color: white;
+}
 .gmap_canvas {
     overflow:hidden;
     background:none!important;
@@ -403,6 +413,12 @@ video {
 }
 
 .form-control {
+    font-size: 1.2rem;
+    padding: 21px 25px;
+}
+
+.category-form {
+    width: 100%;
     font-size: 1.2rem;
     padding: 21px 25px;
 }
