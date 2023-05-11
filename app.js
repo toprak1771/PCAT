@@ -10,6 +10,7 @@ const fs = require('fs');
 const methodOverride = require('method-override');
 const photoController = require('./controllers/photoController');
 const pageController = require('./controllers/pageController');
+const categoryController = require("./controllers/categoryController");
 //connect
 mongoose.connect('mongodb://127.0.0.1:27017/pcat-test-db');
 
@@ -28,11 +29,12 @@ app.use(
 );
 
 //routes
-app.get('/', photoController.getAllPhotos);
-app.get('/photo/:id', photoController.getPhoto);
-app.put('/photo/:id', photoController.editPhoto);
+app.get('/index', photoController.getAllPhotos);
+app.get('/photo', photoController.getPhoto);
+// app.put('/photo/:id', photoController.editPhoto);
 app.delete('/photos/delete/:id', photoController.deletePhoto);
 app.post('/photos', photoController.addPhoto);
+app.post('/category/add',categoryController.addCategory);
 
 app.get('/about', pageController.getAboutPage);
 app.get('/add', pageController.getAddPage);
