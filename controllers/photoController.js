@@ -1,6 +1,7 @@
 const Photo = require('../models/Photo');
 const Category = require('../models/Category');
 const fs = require('fs');
+const { uploadFile, getFile } = require('./../s3');
 
 const getAllPhotos = async (req, res) => {
   try {
@@ -15,15 +16,23 @@ const getAllPhotos = async (req, res) => {
     }
 
     const totalPhotos = await Photo.find().countDocuments();
-    const photos = await Photo.find(filter)
+    let photos = await Photo.find(filter)
       .sort('-dateCreated')
       .skip((page - 1) * photosPerPage)
       .limit(photosPerPage);
     const categories = await Category.find();
+
+    photos.forEach(async (photo) => {
+      const url = await getFile(photo.image);
+      photo.imageUrle = url;
+      console.log('url:', url);
+      console.log('photo1:', photo);
+    });
+
     res.render('index', {
       photos: photos,
       categories: categories,
-      category:category_slug,
+      category: category_slug,
       current: page,
       totalPages: Math.ceil(totalPhotos / photosPerPage),
     });
@@ -66,11 +75,19 @@ const addPhoto = async (req, res) => {
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
   }
+  const file = {
+    path: uploadPath,
+    fileName: '/uploads/' + uploadImage.name,
+  };
+  //console.log('file:', file);
+
   uploadImage.mv(uploadPath, async (err) => {
     await Photo.create({
       ...req.body,
       image: '/uploads/' + uploadImage.name,
     });
+    const result = uploadFile(file);
+    console.log('result_s3:', result);
     res.redirect('/index');
   });
 };
